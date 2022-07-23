@@ -922,7 +922,7 @@ void NvgWindow::drawThermal(QPainter &p) {
 
   int w = 192;
   int x = width() - (30 + w);
-  int y = 450;
+  int y = 350;
 
   QString str;
   QRect rect;
@@ -936,13 +936,13 @@ void NvgWindow::drawThermal(QPainter &p) {
   p.setPen(QColor(r, g, 200, 200));
   p.drawText(rect, Qt::AlignCenter, str);
 
-  y += 55;
+  y += 45;
   configFont(p, "Open Sans", 25, "Bold");
   rect = QRect(x, y, w, w);
   p.setPen(QColor(255, 255, 255, 200));
   p.drawText(rect, Qt::AlignCenter, "CPU");
 
-  y += 80;
+  y += 70;
   configFont(p, "Open Sans", 50, "Bold");
   str.sprintf("%.0f°C", ambientTemp);
   rect = QRect(x, y, w, w);
@@ -951,7 +951,7 @@ void NvgWindow::drawThermal(QPainter &p) {
   p.setPen(QColor(r, g, 200, 200));
   p.drawText(rect, Qt::AlignCenter, str);
 
-  y += 55;
+  y += 45;
   configFont(p, "Open Sans", 25, "Bold");
   rect = QRect(x, y, w, w);
   p.setPen(QColor(255, 255, 255, 200));
