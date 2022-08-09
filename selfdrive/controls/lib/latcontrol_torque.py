@@ -46,14 +46,14 @@ class LatControlTorque(LatControl):
     self.kf = CP.lateralTuning.torque.kf
     self.steering_angle_deadzone_deg = CP.lateralTuning.torque.steeringAngleDeadzoneDeg
     self.errors = []
-    #self.tune = nTune(CP, self) #ntune
+    self.tune = nTune(CP, self) #ntune
 
   def reset(self):
     super().reset()
     self.errors = []
 
   def update(self, active, CS, VM, params, last_actuators, steer_limited, desired_curvature, desired_curvature_rate, llk):
-    #self.tune.check() #ntune
+    self.tune.check() #ntune
     pid_log = log.ControlsState.LateralTorqueState.new_message()
 
     if CS.vEgo < MIN_STEER_SPEED or not active:
