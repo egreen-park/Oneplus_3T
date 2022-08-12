@@ -689,7 +689,7 @@ void NvgWindow::drawMaxSpeed(QPainter &p) {
 
 
   const int x_start = 30;
-  const int y_start = 530;
+  const int y_start = 400;
 
   int board_width = 210;
   int board_height = 384;
@@ -839,7 +839,7 @@ void NvgWindow::drawMaxSpeed(QPainter &p) {
 void NvgWindow::drawSteer(QPainter &p) {
 
   int x = 30;
-  int y = 540;
+  int y = 30;
 
   const SubMaster &sm = *(uiState()->sm);
   auto car_state = sm["carState"].getCarState();
