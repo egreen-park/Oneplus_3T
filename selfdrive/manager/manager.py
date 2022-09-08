@@ -68,6 +68,10 @@ def manager_init() -> None:
     ("OpkrBatteryChargingMax", "80"),
     ("IsOpenpilotViewEnabled", "0"),
     ("OpkrForceShutdown", "5"),
+    ("OpkrAutoScreenOff", "0"),
+    ("OpkrUIBrightness", "0"),
+    ("OpkrUIBrightnessOff", "10"),
+
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

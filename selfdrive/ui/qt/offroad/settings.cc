@@ -711,6 +711,215 @@ void ChargingMax::refresh() {
   label.setText(QString::fromStdString(params.get("OpkrBatteryChargingMax")));
 }
 
+BrightnessControl::BrightnessControl() : AbstractControl("EON Brightness Control(%)", "Manually adjust the brightness of the EON screen.", "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  btnminus.setText("－");
+  btnplus.setText("＋");
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("OpkrUIBrightness"));
+    int value = str.toInt();
+    value = value - 5;
+    if (value <= 0) {
+      value = 0;
+    }
+    uiState()->scene.brightness = value;
+    QString values = QString::number(value);
+    params.put("OpkrUIBrightness", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("OpkrUIBrightness"));
+    int value = str.toInt();
+    value = value + 5;
+    if (value >= 100) {
+      value = 100;
+    }
+    uiState()->scene.brightness = value;
+    QString values = QString::number(value);
+    params.put("OpkrUIBrightness", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void BrightnessControl::refresh() {
+  QString option = QString::fromStdString(params.get("OpkrUIBrightness"));
+  if (option == "0") {
+    label.setText("Auto");
+  } else {
+    label.setText(QString::fromStdString(params.get("OpkrUIBrightness")));
+  }
+}
+
+BrightnessOffControl::BrightnessOffControl() : AbstractControl("Brightness at SCR Off(%)", "When using the EON screen off function, the brightness is reduced according to the automatic brightness ratio.", "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  btnminus.setText("－");
+  btnplus.setText("＋");
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("OpkrUIBrightnessOff"));
+    int value = str.toInt();
+    value = value - 5;
+    if (value <= 0) {
+      value = 0;
+    }
+    uiState()->scene.brightness_off = value;
+    QString values = QString::number(value);
+    params.put("OpkrUIBrightnessOff", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("OpkrUIBrightnessOff"));
+    int value = str.toInt();
+    value = value + 5;
+    if (value >= 100) {
+      value = 100;
+    }
+    uiState()->scene.brightness_off = value;
+    QString values = QString::number(value);
+    params.put("OpkrUIBrightnessOff", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void BrightnessOffControl::refresh() {
+  QString option = QString::fromStdString(params.get("OpkrUIBrightnessOff"));
+  if (option == "0") {
+    label.setText("Dark");
+  } else if (option == "5") {
+     label.setText("MinBr");
+  } else {
+    label.setText(QString::fromStdString(params.get("OpkrUIBrightnessOff")));
+  }
+}
+
+AutoScreenOff::AutoScreenOff() : AbstractControl("EON SCR Off Timer", "Turn off the EON screen or reduce brightness to protect the screen after driving starts. It automatically brightens or turns on when a touch or event occurs.", "../assets/offroad/icon_shell.png") 
+{
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  btnminus.setText("－");
+  btnplus.setText("＋");
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("OpkrAutoScreenOff"));
+    int value = str.toInt();
+    value = value - 1;
+    if (value <= -3) {
+      value = -3;
+    }
+    uiState()->scene.autoScreenOff = value;
+    QString values = QString::number(value);
+    params.put("OpkrAutoScreenOff", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("OpkrAutoScreenOff"));
+    int value = str.toInt();
+    value = value + 1;
+    if (value >= 10) {
+      value = 10;
+    }
+    uiState()->scene.autoScreenOff = value;
+    QString values = QString::number(value);
+    params.put("OpkrAutoScreenOff", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void AutoScreenOff::refresh() 
+{
+  QString option = QString::fromStdString(params.get("OpkrAutoScreenOff"));
+  if (option == "-3") {
+    label.setText("AlwaysOn");
+  } else if (option == "-2") {
+     label.setText("5secs");  
+  } else if (option == "-1") {
+    label.setText("15secs");
+  } else if (option == "0") {
+    label.setText("30secs");
+  } else {
+    label.setText(QString::fromStdString(params.get("OpkrAutoScreenOff")) + "min(s)");
+  }
+}
+
+
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -910,6 +1119,12 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   toggleLayout->addWidget(new ChargingMin());
   toggleLayout->addWidget(horizontal_line());
   toggleLayout->addWidget(new ChargingMax());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new BrightnessControl());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new AutoScreenOff());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new BrightnessOffControl());
 }
 
 SelectCar::SelectCar(QWidget* parent): QWidget(parent) {

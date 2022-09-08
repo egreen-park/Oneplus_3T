@@ -209,6 +209,10 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"OpkrBatteryChargingMax", PERSISTENT},
     {"IsOpenpilotViewEnabled", CLEAR_ON_MANAGER_START},
     {"OpkrForceShutdown", PERSISTENT},
+    {"OpkrAutoScreenOff", PERSISTENT},
+    {"OpkrUIBrightnessOff", PERSISTENT},
+    {"OpkrUIBrightness", PERSISTENT},
+
 };
 
 } // namespace

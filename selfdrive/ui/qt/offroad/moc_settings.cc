@@ -787,6 +787,216 @@ void LateralControl::selected()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
+struct qt_meta_stringdata_BrightnessControl_t {
+    QByteArrayData data[1];
+    char stringdata0[18];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_BrightnessControl_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_BrightnessControl_t qt_meta_stringdata_BrightnessControl = {
+    {
+QT_MOC_LITERAL(0, 0, 17) // "BrightnessControl"
+
+    },
+    "BrightnessControl"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_BrightnessControl[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void BrightnessControl::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject BrightnessControl::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_BrightnessControl.data,
+    qt_meta_data_BrightnessControl,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *BrightnessControl::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *BrightnessControl::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_BrightnessControl.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int BrightnessControl::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_BrightnessOffControl_t {
+    QByteArrayData data[1];
+    char stringdata0[21];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_BrightnessOffControl_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_BrightnessOffControl_t qt_meta_stringdata_BrightnessOffControl = {
+    {
+QT_MOC_LITERAL(0, 0, 20) // "BrightnessOffControl"
+
+    },
+    "BrightnessOffControl"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_BrightnessOffControl[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void BrightnessOffControl::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject BrightnessOffControl::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_BrightnessOffControl.data,
+    qt_meta_data_BrightnessOffControl,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *BrightnessOffControl::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *BrightnessOffControl::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_BrightnessOffControl.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int BrightnessOffControl::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_AutoScreenOff_t {
+    QByteArrayData data[1];
+    char stringdata0[14];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_AutoScreenOff_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_AutoScreenOff_t qt_meta_stringdata_AutoScreenOff = {
+    {
+QT_MOC_LITERAL(0, 0, 13) // "AutoScreenOff"
+
+    },
+    "AutoScreenOff"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_AutoScreenOff[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void AutoScreenOff::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject AutoScreenOff::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_AutoScreenOff.data,
+    qt_meta_data_AutoScreenOff,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *AutoScreenOff::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *AutoScreenOff::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_AutoScreenOff.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int AutoScreenOff::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
 struct qt_meta_stringdata_ChargingMin_t {
     QByteArrayData data[1];
     char stringdata0[12];

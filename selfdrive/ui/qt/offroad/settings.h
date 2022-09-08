@@ -11,6 +11,7 @@
 
 
 #include "selfdrive/ui/qt/widgets/controls.h"
+#include "selfdrive/ui/ui.h"
 
 // ********** settings window + top-level panels **********
 class SettingsWindow : public QFrame {
@@ -117,6 +118,51 @@ signals:
   void backPress();
   void selected();
 
+};
+
+class BrightnessControl : public AbstractControl {
+  Q_OBJECT
+
+public:
+  BrightnessControl();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+class BrightnessOffControl : public AbstractControl {
+  Q_OBJECT
+
+public:
+  BrightnessOffControl();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+class AutoScreenOff : public AbstractControl {
+  Q_OBJECT
+
+public:
+  AutoScreenOff();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
 };
 
 class ChargingMin : public AbstractControl {
