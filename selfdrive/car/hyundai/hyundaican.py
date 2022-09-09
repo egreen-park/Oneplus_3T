@@ -11,8 +11,8 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
                   left_lane, right_lane,
                   left_lane_depart, right_lane_depart, bus, ldws, cnt):
   values = lkas11
-  #values["CF_Lkas_LdwsSysState"] = sys_state
-  values["CF_Lkas_LdwsSysState"] = 3 if enabled else sys_state ### K7 LDWS
+  values["CF_Lkas_LdwsSysState"] = sys_state
+  #values["CF_Lkas_LdwsSysState"] = 3 if enabled else sys_state ### K7 LDWS
   values["CF_Lkas_SysWarning"] = 3 if sys_warning else 0
   values["CF_Lkas_LdwsLHWarning"] = left_lane_depart
   values["CF_Lkas_LdwsRHWarning"] = right_lane_depart
@@ -54,9 +54,10 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
     values["CF_Lkas_LdwsActivemode"] = 2
   # elif car_fingerprint in (CAR.K5_HEV_JF, CAR.K5_JF, CAR.K7_HEV_YG, CAR.K7_YG):
   #   values["CF_Lkas_LdwsActivemode"] = 0
-  elif car_fingerprint == CAR.K7: ######## K7 LDWS #######
-    values["CF_Lkas_LdwsActivemode"] = 2
-    values["CF_Lkas_FcwOpt_USM"] = 1
+  
+  #elif car_fingerprint == CAR.K7: ######## K7 LDWS #######
+  #  values["CF_Lkas_LdwsActivemode"] = 2
+  #  values["CF_Lkas_FcwOpt_USM"] = 1
     
 
   if ldws:
