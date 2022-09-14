@@ -6,6 +6,8 @@ from common.realtime import DT_MDL
 from selfdrive.hardware import EON, TICI
 from selfdrive.swaglog import cloudlog
 from selfdrive.ntune import ntune_common_get
+from common.params import Params
+from decimal import Decimal
 
 ENABLE_ZORROBYTE = True
 ENABLE_INC_LANE_PROB = True
@@ -17,7 +19,8 @@ TRAJECTORY_SIZE = 33
 # so a path offset is not needed
 PATH_OFFSET = 0.00
 if EON:
-  CAMERA_OFFSET = 0.00
+  #CAMERA_OFFSET = 0.00
+  CAMERA_OFFSET = -(float(Decimal(Params().get("CameraOffsetAdj", encoding="utf8")) * Decimal('0.001')))  # m from center car to camera
 elif TICI:
   CAMERA_OFFSET = 0.0
 else:

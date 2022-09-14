@@ -74,6 +74,7 @@ def manager_init() -> None:
     ("CloseToRoadEdge", "0"),
     ("LeftEdgeOffset", "0"),
     ("RightEdgeOffset", "0"),
+    ("CameraOffsetAdj", "60"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
