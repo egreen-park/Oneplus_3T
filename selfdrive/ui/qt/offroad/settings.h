@@ -238,3 +238,37 @@ public:
   explicit CommunityPanel(QWidget *parent = nullptr);
 };
 
+class CloseToRoadEdgeToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  CloseToRoadEdgeToggle() : ToggleControl(tr("Driving Close to RoadEdge"), tr("This will adjust the camera offset to get close to road edge if the car is on the first or last lane."), "../assets/offroad/icon_shell.png", Params().getBool("CloseToRoadEdge")) {
+    QObject::connect(this, &CloseToRoadEdgeToggle::toggleFlipped, [=](int state) {
+      bool status = state ? true : false;
+      Params().putBool("CloseToRoadEdge", status);
+    });
+  }
+};
+
+class OPKREdgeOffset : public AbstractControl {
+  Q_OBJECT
+
+public:
+  OPKREdgeOffset();
+
+private:
+  QPushButton btnplusl;
+  QPushButton btnminusl;
+  QPushButton btnplusr;
+  QPushButton btnminusr;
+  QLabel labell1;
+  QLabel labelr1;
+  QLabel labell;
+  QLabel labelr;
+  Params params;
+  
+  void refreshl();
+  void refreshr();
+};
+
+

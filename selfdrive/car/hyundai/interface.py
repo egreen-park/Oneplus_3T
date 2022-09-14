@@ -47,6 +47,8 @@ class CarInterface(CarInterfaceBase):
 
     ret.disableLateralLiveTuning = False
 
+    ret.lateralTuning.init('torque')
+
     ret.steerRatio = 16.5
 
     ret.steerActuatorDelay = 0.1  # Default delay
@@ -249,18 +251,10 @@ class CarInterface(CarInterfaceBase):
 
     #TORQUE ONLY
     #selfdrive/car/torque_data/params.yaml 참조해서 값 입력 https://codebeautify.org/jsonviewer/y220b1623
-    #LAT_ACCEL_FACTOR 값이 커질수록 언더, 작아질수록 오버가 나고
-    #FRICTION 값이 작아질수록 회전각이 작아지고 커브에 느리게 반응하고 값이 커질수록 회전각이 커지고 커브 반응이 빨라 진다고 합니다.
-    #FRICTION 값이 너무 크면 좌우 핑퐁이 많이 생긴다고 합니다.
-
-    #torque_lat_accel_factor = 2.544642494803999 #LAT_ACCEL_FACTOR
-    #torque_friction = 0.1301424599248651 #FRICTION
-    #ret.maxLateralAccel = 1.8721703683337008 #MAX_LAT_ACCEL_MEASURE
-
-    torque_lat_accel_factor = 2.5250855675875634 #LAT_ACCEL_FACTOR
-    torque_friction = 0.13391574986922777 #FRICTION
+    torque_lat_accel_factor = 2.544642494803999 #LAT_ACCEL_FACTOR
+    torque_friction = 0.1301424599248651 #FRICTION
     torque_friction = 0.05
-    ret.maxLateralAccel = 1.8303582523301922 #MAX_LAT_ACCEL_MEASURED
+    ret.maxLateralAccel = 1.8721703683337008 #MAX_LAT_ACCEL_MEASURED
 
     #토크
     CarInterfaceBase.configure_torque_tune(ret.lateralTuning, torque_lat_accel_factor, torque_friction)

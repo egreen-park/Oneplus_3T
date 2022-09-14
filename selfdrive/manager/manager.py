@@ -71,7 +71,9 @@ def manager_init() -> None:
     ("OpkrAutoScreenOff", "0"),
     ("OpkrUIBrightness", "0"),
     ("OpkrUIBrightnessOff", "10"),
-
+    ("CloseToRoadEdge", "0"),
+    ("LeftEdgeOffset", "0"),
+    ("RightEdgeOffset", "0"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

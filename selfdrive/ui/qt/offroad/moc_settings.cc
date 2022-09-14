@@ -1347,5 +1347,145 @@ int CommunityPanel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     return _id;
 }
+struct qt_meta_stringdata_CloseToRoadEdgeToggle_t {
+    QByteArrayData data[1];
+    char stringdata0[22];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_CloseToRoadEdgeToggle_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_CloseToRoadEdgeToggle_t qt_meta_stringdata_CloseToRoadEdgeToggle = {
+    {
+QT_MOC_LITERAL(0, 0, 21) // "CloseToRoadEdgeToggle"
+
+    },
+    "CloseToRoadEdgeToggle"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_CloseToRoadEdgeToggle[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void CloseToRoadEdgeToggle::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject CloseToRoadEdgeToggle::staticMetaObject = { {
+    &ToggleControl::staticMetaObject,
+    qt_meta_stringdata_CloseToRoadEdgeToggle.data,
+    qt_meta_data_CloseToRoadEdgeToggle,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *CloseToRoadEdgeToggle::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *CloseToRoadEdgeToggle::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_CloseToRoadEdgeToggle.stringdata0))
+        return static_cast<void*>(this);
+    return ToggleControl::qt_metacast(_clname);
+}
+
+int CloseToRoadEdgeToggle::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = ToggleControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_OPKREdgeOffset_t {
+    QByteArrayData data[1];
+    char stringdata0[15];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_OPKREdgeOffset_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_OPKREdgeOffset_t qt_meta_stringdata_OPKREdgeOffset = {
+    {
+QT_MOC_LITERAL(0, 0, 14) // "OPKREdgeOffset"
+
+    },
+    "OPKREdgeOffset"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_OPKREdgeOffset[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void OPKREdgeOffset::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject OPKREdgeOffset::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_OPKREdgeOffset.data,
+    qt_meta_data_OPKREdgeOffset,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *OPKREdgeOffset::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *OPKREdgeOffset::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_OPKREdgeOffset.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int OPKREdgeOffset::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

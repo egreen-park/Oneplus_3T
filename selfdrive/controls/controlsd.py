@@ -101,7 +101,7 @@ class Controls:
       ignore = ['driverCameraState', 'managerState'] if SIMULATION else None
       self.sm = messaging.SubMaster(['deviceState', 'pandaStates', 'peripheralState', 'modelV2', 'liveCalibration',
                                      'driverMonitoringState', 'longitudinalPlan', 'lateralPlan', 'liveLocationKalman',
-                                     'managerState', 'liveParameters', 'radarState'] + self.camera_packets + joystick_packet,
+                                     'managerState', 'liveParameters', 'radarState', 'liveTorqueParameters'] + self.camera_packets + joystick_packet,
                                      ignore_alive=ignore, ignore_avg_freq=['radarState', 'longitudinalPlan'])
 
 
@@ -568,13 +568,14 @@ class Controls:
     params = self.sm['liveParameters']
     x = max(params.stiffnessFactor, 0.1)
     sr = max(params.steerRatio, 0.1)
-
-    #if ntune_common_enabled('useLiveSteerRatio'):
-    #  sr = max(params.steerRatio, 0.1)
-    #else:
-    #  sr = max(ntune_common_get('steerRatio'), 0.1)
-
     self.VM.update_params(x, sr)
+
+    # Update Torque Params
+    if self.CP.lateralTuning.which() == 'torque':
+      torque_params = self.sm['liveTorqueParameters']
+      # Todo: Figure out why this is needed, and remove it
+      if (torque_params.latAccelFactorFiltered > 0) and (self.sm.valid['liveTorqueParameters']):
+        self.LaC.update_live_torque_params(torque_params.latAccelFactorFiltered, torque_params.latAccelOffsetFiltered, torque_params.frictionCoefficientFiltered)
 
     lat_plan = self.sm['lateralPlan']
     long_plan = self.sm['longitudinalPlan']
@@ -648,8 +649,8 @@ class Controls:
         left_deviation = steering_value > 0 and dpath_points[0] < -0.20
         right_deviation = steering_value < 0 and dpath_points[0] > 0.20
 
-        if left_deviation or right_deviation:
-          self.events.add(EventName.steerSaturated)
+        #if left_deviation or right_deviation:
+        #  self.events.add(EventName.steerSaturated)
 
     # Ensure no NaNs/Infs
     for p in ACTUATOR_FIELDS:

@@ -17,9 +17,9 @@ TRAJECTORY_SIZE = 33
 # so a path offset is not needed
 PATH_OFFSET = 0.00
 if EON:
-  CAMERA_OFFSET = 0.0
+  CAMERA_OFFSET = 0.00
 elif TICI:
-  CAMERA_OFFSET = 0.04
+  CAMERA_OFFSET = 0.0
 else:
   CAMERA_OFFSET = 0.0
 
@@ -52,7 +52,45 @@ class LanePlanner:
 
     self.wide_camera = wide_camera
 
+    #opkr
+    self.drive_close_to_edge = self.params.get_bool("CloseToRoadEdge")
+    self.left_edge_offset = float(Decimal(self.params.get("LeftEdgeOffset", encoding="utf8")) * Decimal('0.01')) #0.15 move to right
+    self.right_edge_offset = float(Decimal(self.params.get("RightEdgeOffset", encoding="utf8")) * Decimal('0.01')) #-0.15 move to left
+
+    self.road_edge_offset = 0.0
+    self.total_camera_offset = self.camera_offset
+    self.lp_timer = 0
+    self.lp_timer2 = 0
+    self.lp_timer3 = 0
+
   def parse_model(self, md):
+
+    #opkr
+    if self.drive_close_to_edge:
+      left_edge_prob = np.clip(1.0 - md.roadEdgeStds[0], 0.0, 1.0)
+      left_nearside_prob = md.laneLineProbs[0]
+      left_close_prob = md.laneLineProbs[1]
+      right_close_prob = md.laneLineProbs[2]
+      right_nearside_prob = md.laneLineProbs[3]
+      right_edge_prob = np.clip(1.0 - md.roadEdgeStds[1], 0.0, 1.0)
+
+      self.lp_timer3 += DT_MDL
+      if self.lp_timer3 > 3.0:
+        self.lp_timer3 = 0.0
+        if right_nearside_prob < 0.1 and left_nearside_prob < 0.1:
+          self.road_edge_offset = 0.0
+        elif right_edge_prob > 0.35 and right_nearside_prob < 0.2 and right_close_prob > 0.5 and left_nearside_prob >= right_nearside_prob:
+          self.road_edge_offset = -self.right_edge_offset
+        elif left_edge_prob > 0.35 and left_nearside_prob < 0.2 and left_close_prob > 0.5 and right_nearside_prob >= left_nearside_prob:
+          self.road_edge_offset = -self.left_edge_offset
+        else:
+          self.road_edge_offset = 0.0
+    else:
+      self.road_edge_offset = 0.0
+
+    self.total_camera_offset = self.camera_offset + self.road_edge_offset
+
+
     lane_lines = md.laneLines
     if len(lane_lines) == 4 and len(lane_lines[0].t) == TRAJECTORY_SIZE:
       self.ll_t = (np.array(lane_lines[1].t) + np.array(lane_lines[2].t))/2
@@ -60,8 +98,8 @@ class LanePlanner:
       self.ll_x = lane_lines[1].x
       # only offset left and right lane lines; offsetting path does not make sense
 
-      self.lll_y = np.array(lane_lines[1].y) + self.camera_offset
-      self.rll_y = np.array(lane_lines[2].y) + self.camera_offset
+      self.lll_y = np.array(lane_lines[1].y) + self.total_camera_offset
+      self.rll_y = np.array(lane_lines[2].y) + self.total_camera_offset
       self.lll_prob = md.laneLineProbs[1]
       self.rll_prob = md.laneLineProbs[2]
       self.lll_std = md.laneLineStds[1]
