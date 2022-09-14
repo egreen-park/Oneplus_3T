@@ -9,6 +9,7 @@ from selfdrive.car import STD_CARGO_KG, scale_rot_inertia, scale_tire_stiffness,
 from selfdrive.car.interfaces import CarInterfaceBase
 from common.params import Params
 from selfdrive.controls.lib.desire_helper import LANE_CHANGE_SPEED_MIN
+from decimal import Decimal
 
 GearShifter = car.CarState.GearShifter
 EventName = car.CarEvent.EventName
