@@ -285,3 +285,50 @@ private:
   
   void refresh();
 };
+
+class SteerActuatorDelay : public AbstractControl {
+  Q_OBJECT
+
+public:
+  SteerActuatorDelay();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+class SteerLimitTimer : public AbstractControl {
+  Q_OBJECT
+
+public:
+  SteerLimitTimer();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+class PathOffset : public AbstractControl {
+  Q_OBJECT
+
+public:
+  PathOffset();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+

@@ -75,6 +75,9 @@ def manager_init() -> None:
     ("LeftEdgeOffset", "0"),
     ("RightEdgeOffset", "0"),
     ("CameraOffsetAdj", "60"),
+    ("SteerActuatorDelayAdj", "10"),
+    ("SteerLimitTimerAdj", "400"),
+    ("PathOffsetAdj", "0"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

@@ -1557,5 +1557,215 @@ int CameraOffset::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = AbstractControl::qt_metacall(_c, _id, _a);
     return _id;
 }
+struct qt_meta_stringdata_SteerActuatorDelay_t {
+    QByteArrayData data[1];
+    char stringdata0[19];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_SteerActuatorDelay_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_SteerActuatorDelay_t qt_meta_stringdata_SteerActuatorDelay = {
+    {
+QT_MOC_LITERAL(0, 0, 18) // "SteerActuatorDelay"
+
+    },
+    "SteerActuatorDelay"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_SteerActuatorDelay[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void SteerActuatorDelay::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject SteerActuatorDelay::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_SteerActuatorDelay.data,
+    qt_meta_data_SteerActuatorDelay,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *SteerActuatorDelay::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *SteerActuatorDelay::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_SteerActuatorDelay.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int SteerActuatorDelay::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_SteerLimitTimer_t {
+    QByteArrayData data[1];
+    char stringdata0[16];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_SteerLimitTimer_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_SteerLimitTimer_t qt_meta_stringdata_SteerLimitTimer = {
+    {
+QT_MOC_LITERAL(0, 0, 15) // "SteerLimitTimer"
+
+    },
+    "SteerLimitTimer"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_SteerLimitTimer[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void SteerLimitTimer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject SteerLimitTimer::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_SteerLimitTimer.data,
+    qt_meta_data_SteerLimitTimer,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *SteerLimitTimer::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *SteerLimitTimer::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_SteerLimitTimer.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int SteerLimitTimer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_PathOffset_t {
+    QByteArrayData data[1];
+    char stringdata0[11];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_PathOffset_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_PathOffset_t qt_meta_stringdata_PathOffset = {
+    {
+QT_MOC_LITERAL(0, 0, 10) // "PathOffset"
+
+    },
+    "PathOffset"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_PathOffset[] = {
+
+ // content:
+       8,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void PathOffset::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+QT_INIT_METAOBJECT const QMetaObject PathOffset::staticMetaObject = { {
+    &AbstractControl::staticMetaObject,
+    qt_meta_stringdata_PathOffset.data,
+    qt_meta_data_PathOffset,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *PathOffset::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *PathOffset::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_PathOffset.stringdata0))
+        return static_cast<void*>(this);
+    return AbstractControl::qt_metacast(_clname);
+}
+
+int PathOffset::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = AbstractControl::qt_metacall(_c, _id, _a);
+    return _id;
+}
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
