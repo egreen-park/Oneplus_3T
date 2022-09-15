@@ -31,6 +31,7 @@ from selfdrive.hardware import HARDWARE, TICI, EON
 from selfdrive.manager.process_config import managed_processes
 from selfdrive.car.hyundai.scc_smoother import SccSmoother
 from selfdrive.ntune import ntune_common_get, ntune_common_enabled, ntune_scc_get
+from decimal import Decimal
 
 SOFT_DISABLE_TIME = 3  # seconds
 LDW_MIN_SPEED = 31 * CV.MPH_TO_MS
@@ -752,6 +753,7 @@ class Controls:
 
     # Curvature & Steering angle
     params = self.sm['liveParameters']
+    torque_params = self.sm['liveTorqueParameters']
 
     steer_angle_without_offset = math.radians(CS.steeringAngleDeg - params.angleOffsetDeg)
     curvature = -self.VM.calc_curvature(steer_angle_without_offset, CS.vEgo, params.roll)
@@ -799,11 +801,15 @@ class Controls:
     controlsState.sccStockCamStatus = self.sccStockCamStatus
 
     controlsState.steerRatio = self.VM.sR
-    controlsState.steerActuatorDelay = ntune_common_get('steerActuatorDelay')
+    controlsState.steerActuatorDelay = float(Decimal(Params().get("SteerActuatorDelayAdj", encoding="utf8")) * Decimal('0.01'))
 
     controlsState.sccGasFactor = ntune_scc_get('sccGasFactor')
     controlsState.sccBrakeFactor = ntune_scc_get('sccBrakeFactor')
     controlsState.sccCurvatureFactor = ntune_scc_get('sccCurvatureFactor')
+
+    controlsState.latAccelFactor = torque_params.latAccelFactorFiltered
+    controlsState.latAccelOffset = torque_params.latAccelOffsetFiltered
+    controlsState.friction = torque_params.frictionCoefficientFiltered
 
     lat_tuning = self.CP.lateralTuning.which()
     if self.joystick_mode:

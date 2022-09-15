@@ -863,7 +863,7 @@ struct ControlsState {
   struct LateralControlState;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(97ff69c53601abf1, 29, 6)
+    CAPNP_DECLARE_STRUCT_HEADER(97ff69c53601abf1, 31, 6)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -976,7 +976,7 @@ struct ControlsState::LateralControlState {
   };
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(fd5b914d6b444695, 29, 6)
+    CAPNP_DECLARE_STRUCT_HEADER(fd5b914d6b444695, 31, 6)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -5870,6 +5870,12 @@ public:
 
   inline float getSccStockCamStatus() const;
 
+  inline float getLatAccelFactor() const;
+
+  inline float getLatAccelOffset() const;
+
+  inline float getFriction() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -6128,6 +6134,15 @@ public:
 
   inline float getSccStockCamStatus();
   inline void setSccStockCamStatus(float value);
+
+  inline float getLatAccelFactor();
+  inline void setLatAccelFactor(float value);
+
+  inline float getLatAccelOffset();
+  inline void setLatAccelOffset(float value);
+
+  inline float getFriction();
+  inline void setFriction(float value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -23759,6 +23774,48 @@ inline float ControlsState::Builder::getSccStockCamStatus() {
 inline void ControlsState::Builder::setSccStockCamStatus(float value) {
   _builder.setDataField<float>(
       ::capnp::bounded<57>() * ::capnp::ELEMENTS, value);
+}
+
+inline float ControlsState::Reader::getLatAccelFactor() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<58>() * ::capnp::ELEMENTS);
+}
+
+inline float ControlsState::Builder::getLatAccelFactor() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<58>() * ::capnp::ELEMENTS);
+}
+inline void ControlsState::Builder::setLatAccelFactor(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<58>() * ::capnp::ELEMENTS, value);
+}
+
+inline float ControlsState::Reader::getLatAccelOffset() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<59>() * ::capnp::ELEMENTS);
+}
+
+inline float ControlsState::Builder::getLatAccelOffset() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<59>() * ::capnp::ELEMENTS);
+}
+inline void ControlsState::Builder::setLatAccelOffset(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<59>() * ::capnp::ELEMENTS, value);
+}
+
+inline float ControlsState::Reader::getFriction() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<60>() * ::capnp::ELEMENTS);
+}
+
+inline float ControlsState::Builder::getFriction() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<60>() * ::capnp::ELEMENTS);
+}
+inline void ControlsState::Builder::setFriction(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<60>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool ControlsState::LateralINDIState::Reader::getActive() const {
