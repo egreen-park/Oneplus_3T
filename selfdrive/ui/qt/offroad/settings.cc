@@ -1505,7 +1505,7 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   toggleLayout->addWidget(new AutoScreenOff());
   toggleLayout->addWidget(horizontal_line());
   toggleLayout->addWidget(new BrightnessOffControl());
-  toggleLayout->addWidget(new LabelControl(tr("〓〓〓〓〓〓〓〓【 TUNING 】〓〓〓〓〓〓〓〓"), ""));
+  toggleLayout->addWidget(new LabelControl(tr("〓〓〓〓〓〓〓〓〓〓【 TUNING 】〓〓〓〓〓〓〓〓〓〓"), ""));
   toggleLayout->addWidget(new CameraOffset());
   toggleLayout->addWidget(new PathOffset());
   toggleLayout->addWidget(horizontal_line());
