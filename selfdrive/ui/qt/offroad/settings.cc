@@ -77,6 +77,7 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       "When enabled, pressing the accelerator pedal will disengage openpilot.",
       "../assets/offroad/icon_disengage_on_accelerator.svg",
     },
+
 #ifdef ENABLE_MAPS
     {
       "NavSettingTime24h",
@@ -1300,6 +1301,391 @@ void SteerLimitTimer::refresh() {
   label.setText(QString::fromStdString(valuefs.toStdString()));
 }
 
+SRBaseControl::SRBaseControl() : AbstractControl(tr("SteerRatio"), tr("Sets the SteerRatio default value."), "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btndigit.setStyleSheet(R"(
+    QPushButton {
+      padding: 0;
+      border-radius: 50px;
+      font-size: 35px;
+      font-weight: 500;
+      color: #E4E4E4;
+      background-color: #393939;
+    }
+    QPushButton:pressed {
+      background-color: #ababab;
+    }
+  )");
+  btnminus.setStyleSheet(R"(
+    QPushButton {
+      padding: 0;
+      border-radius: 50px;
+      font-size: 35px;
+      font-weight: 500;
+      color: #E4E4E4;
+      background-color: #393939;
+    }
+    QPushButton:pressed {
+      background-color: #ababab;
+    }
+  )");
+  btnplus.setStyleSheet(R"(
+    QPushButton {
+      padding: 0;
+      border-radius: 50px;
+      font-size: 35px;
+      font-weight: 500;
+      color: #E4E4E4;
+      background-color: #393939;
+    }
+    QPushButton:pressed {
+      background-color: #ababab;
+    }
+  )");
+  btndigit.setFixedSize(100, 100);
+  btnminus.setFixedSize(100, 100);
+  btnplus.setFixedSize(100, 100);
+  hlayout->addWidget(&btndigit);
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+  btndigit.setText("0.01");
+  btnminus.setText("-");
+  btnplus.setText("+");
+
+  QObject::connect(&btndigit, &QPushButton::clicked, [=]() {
+    digit = digit * 10;
+    if (digit >= 11) {
+      digit = 0.01;
+    }
+    QString level = QString::number(digit);
+    btndigit.setText(level);
+  });
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("SteerRatioAdj"));
+    int value = str.toInt();
+    value = value - (digit*100);
+    if (value <= 800) {
+      value = 800;
+    }
+    QString values = QString::number(value);
+    params.put("SteerRatioAdj", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("SteerRatioAdj"));
+    int value = str.toInt();
+    value = value + (digit*100);
+    if (value >= 2000) {
+      value = 2000;
+    }
+    QString values = QString::number(value);
+    params.put("SteerRatioAdj", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void SRBaseControl::refresh() {
+  auto strs = QString::fromStdString(params.get("SteerRatioAdj"));
+  int valuei = strs.toInt();
+  float valuef = valuei * 0.01;
+  QString valuefs = QString::number(valuef);
+  label.setText(QString::fromStdString(valuefs.toStdString()));
+}
+
+SRMaxControl::SRMaxControl() : AbstractControl(tr("SteerRatioMax"), tr("Sets the SteerRatio maximum value."), "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btndigit.setStyleSheet(R"(
+    QPushButton {
+      padding: 0;
+      border-radius: 50px;
+      font-size: 35px;
+      font-weight: 500;
+      color: #E4E4E4;
+      background-color: #393939;
+    }
+    QPushButton:pressed {
+      background-color: #ababab;
+    }
+  )");
+  btnminus.setStyleSheet(R"(
+    QPushButton {
+      padding: 0;
+      border-radius: 50px;
+      font-size: 35px;
+      font-weight: 500;
+      color: #E4E4E4;
+      background-color: #393939;
+    }
+    QPushButton:pressed {
+      background-color: #ababab;
+    }
+  )");
+  btnplus.setStyleSheet(R"(
+    QPushButton {
+      padding: 0;
+      border-radius: 50px;
+      font-size: 35px;
+      font-weight: 500;
+      color: #E4E4E4;
+      background-color: #393939;
+    }
+    QPushButton:pressed {
+      background-color: #ababab;
+    }
+  )");
+  btndigit.setFixedSize(100, 100);
+  btnminus.setFixedSize(100, 100);
+  btnplus.setFixedSize(100, 100);
+  hlayout->addWidget(&btndigit);
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+  btndigit.setText("0.01");
+  btnminus.setText("-");
+  btnplus.setText("+");
+
+  QObject::connect(&btndigit, &QPushButton::clicked, [=]() {
+    digit = digit * 10;
+    if (digit >= 11) {
+      digit = 0.01;
+    }
+    QString level = QString::number(digit);
+    btndigit.setText(level);
+  });
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("SteerRatioMaxAdj"));
+    int value = str.toInt();
+    value = value - (digit*100);
+    if (value <= 800) {
+      value = 800;
+    }
+    QString values = QString::number(value);
+    params.put("SteerRatioMaxAdj", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("SteerRatioMaxAdj"));
+    int value = str.toInt();
+    value = value + (digit*100);
+    if (value >= 2000) {
+      value = 2000;
+    }
+    QString values = QString::number(value);
+    params.put("SteerRatioMaxAdj", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void SRMaxControl::refresh() {
+  auto strs = QString::fromStdString(params.get("SteerRatioMaxAdj"));
+  int valuei = strs.toInt();
+  float valuef = valuei * 0.01;
+  QString valuefs = QString::number(valuef);
+  label.setText(QString::fromStdString(valuefs.toStdString()));
+}
+
+LiveSRPercent::LiveSRPercent() : AbstractControl(tr("LiveSR Adjust(%)"), tr("When using LiveSR, the learned value is arbitrarily adjusted (%) and used. -Value:Lower from learned value, +Value:Lower from learned value"), "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("LiveSteerRatioPercent"));
+    int value = str.toInt();
+    value = value - 1;
+    if (value <= -50) {
+      value = -50;
+    }
+    QString values = QString::number(value);
+    params.put("LiveSteerRatioPercent", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("LiveSteerRatioPercent"));
+    int value = str.toInt();
+    value = value + 1;
+    if (value >= 50) {
+      value = 50;
+    }
+    QString values = QString::number(value);
+    params.put("LiveSteerRatioPercent", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void LiveSRPercent::refresh() {
+  QString option = QString::fromStdString(params.get("LiveSteerRatioPercent"));
+  if (option == "0") {
+    label.setText(tr("Default"));
+  } else {
+    label.setText(QString::fromStdString(params.get("LiveSteerRatioPercent")));
+  }
+  btnminus.setText("-");
+  btnplus.setText("+");
+}
+
+TorqueFriction::TorqueFriction() : AbstractControl(tr("Friction"), tr("Adjust Friction"), "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  btnminus.setText("－");
+  btnplus.setText("＋");
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("TorqueFriction"));
+    int value = str.toInt();
+    value = value - 5;
+    if (value <= 0) {
+      value = 0;
+    }
+    QString values = QString::number(value);
+    params.put("TorqueFriction", values.toStdString());
+    refresh();
+  });
+  
+ QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("TorqueFriction"));
+    int value = str.toInt();
+    value = value + 5;
+    if (value >= 300) {
+      value = 300;
+    }
+    QString values = QString::number(value);
+    params.put("TorqueFriction", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void TorqueFriction::refresh() {
+  auto strs = QString::fromStdString(params.get("TorqueFriction"));
+  int valuei = strs.toInt();
+  float valuef = valuei * 0.001;
+  QString valuefs = QString::number(valuef);
+  label.setText(QString::fromStdString(valuefs.toStdString()));
+}
+
+TorqueMaxLatAccel::TorqueMaxLatAccel() : AbstractControl(tr("MaxLatAccel"), tr("Adjust MaxLatAccel"), "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  btnminus.setText("－");
+  btnplus.setText("＋");
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("TorqueMaxLatAccel"));
+    int value = str.toInt();
+    value = value - 1;
+    if (value <= 1) {
+      value = 1;
+    }
+    QString values = QString::number(value);
+    params.put("TorqueMaxLatAccel", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("TorqueMaxLatAccel"));
+    int value = str.toInt();
+    value = value + 1;
+    if (value >= 50) {
+      value = 50;
+    }
+    QString values = QString::number(value);
+    params.put("TorqueMaxLatAccel", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void TorqueMaxLatAccel::refresh() {
+  auto strs = QString::fromStdString(params.get("TorqueMaxLatAccel"));
+  int valuei = strs.toInt();
+  float valuef = valuei * 0.1;
+  QString valuefs = QString::number(valuef);
+  label.setText(QString::fromStdString(valuefs.toStdString()));
+}
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -1392,6 +1778,39 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
 
   QList<ParamControl*> toggles;
 
+  toggleLayout->addWidget(new LabelControl(tr("〓〓〓〓〓〓〓〓〓〓【 TUNING 】〓〓〓〓〓〓〓〓〓〓"), ""));
+  toggleLayout->addWidget(new CameraOffset());
+  toggleLayout->addWidget(new PathOffset());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new CloseToRoadEdgeToggle());
+  toggleLayout->addWidget(new OPKREdgeOffset());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new LiveSteerRatioToggle());
+  toggleLayout->addWidget(new LiveSRPercent());
+  toggleLayout->addWidget(new SRBaseControl());
+  toggleLayout->addWidget(new SRMaxControl());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new SteerActuatorDelay());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new SteerLimitTimer());
+  toggleLayout->addWidget(horizontal_line());
+  toggleLayout->addWidget(new TorqueMaxLatAccel());
+  toggleLayout->addWidget(horizontal_line());
+
+  toggleLayout->addWidget(new TorqueFriction());
+
+  toggles.append(new ParamControl("IsLiveTorque",
+                                            "Enable Live Torque",
+                                            "",
+                                            "../assets/offroad/icon_shell.png",
+                                            this));
+
+  toggles.append(new ParamControl("IsLowSpeedFactor",
+                                            "Enable Low Speed Factor",
+                                            "",
+                                            "../assets/offroad/icon_shell.png",
+                                            this));
+
   toggles.append(new ParamControl("UseClusterSpeed",
                                             "Use Cluster Speed",
                                             "Use cluster speed instead of wheel speed.",
@@ -1474,8 +1893,7 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "",
                                             "../assets/offroad/icon_shell.png",
                                             this));
-  
-  
+
   toggles.append(new ParamControl("OpkrBatteryChargingControl",
                                             "Enable Battery Charging Control",
                                             "It uses the battery charge control function.",
@@ -1505,16 +1923,6 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   toggleLayout->addWidget(new AutoScreenOff());
   toggleLayout->addWidget(horizontal_line());
   toggleLayout->addWidget(new BrightnessOffControl());
-  toggleLayout->addWidget(new LabelControl(tr("〓〓〓〓〓〓〓〓〓〓【 TUNING 】〓〓〓〓〓〓〓〓〓〓"), ""));
-  toggleLayout->addWidget(new CameraOffset());
-  toggleLayout->addWidget(new PathOffset());
-  toggleLayout->addWidget(horizontal_line());
-  toggleLayout->addWidget(new CloseToRoadEdgeToggle());
-  toggleLayout->addWidget(new OPKREdgeOffset());
-  toggleLayout->addWidget(horizontal_line());
-  toggleLayout->addWidget(new SteerActuatorDelay());
-  toggleLayout->addWidget(horizontal_line());
-  toggleLayout->addWidget(new SteerLimitTimer());
 }
 
 SelectCar::SelectCar(QWidget* parent): QWidget(parent) {

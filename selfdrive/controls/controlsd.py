@@ -113,6 +113,7 @@ class Controls:
       self.CP.alternativeExperience |= ALTERNATIVE_EXPERIENCE.DISABLE_DISENGAGE_ON_GAS
 
     # read params
+    self.is_live_torque = params.get_bool("IsLiveTorque")
     self.is_metric = params.get_bool("IsMetric")
     self.is_ldw_enabled = params.get_bool("IsLdwEnabled")
     openpilot_enabled_toggle = params.get_bool("OpenpilotEnabledToggle")
@@ -200,6 +201,18 @@ class Controls:
 
     # TODO: no longer necessary, aside from process replay
     self.sm['liveParameters'].valid = True
+
+    self.torque_latAccelFactor = 0.
+    self.torque_latAccelOffset = 0.
+    self.torque_friction = 0.
+
+    #opkr
+    self.second = 0.0
+    self.steerRatio_Max = float(Decimal(params.get("SteerRatioMaxAdj", encoding="utf8")) * Decimal('0.01'))
+    self.new_steerRatio = self.CP.steerRatio
+    self.steerRatio_to_send = 0
+    self.live_sr = params.get_bool("OpkrLiveSteerRatio")
+    self.live_sr_percent = int(Params().get("LiveSteerRatioPercent", encoding="utf8"))
 
     self.startup_event = get_startup_event(car_recognized, controller_available, len(self.CP.carFw) > 0)
 
@@ -322,6 +335,14 @@ class Controls:
 
       if log.PandaState.FaultType.relayMalfunction in pandaState.faults:
         self.events.add(EventName.relayMalfunction)
+
+    #opkr
+    self.second += DT_CTRL
+    if self.second > 1.0:
+      self.live_sr = Params().get_bool("OpkrLiveSteerRatio")
+      self.live_sr_percent = int(Params().get("LiveSteerRatioPercent", encoding="utf8"))
+      self.second = 0.0
+
 
     # Check for HW or system issues
     if len(self.sm['radarState'].radarErrors):
@@ -568,15 +589,38 @@ class Controls:
     # Update VehicleModel
     params = self.sm['liveParameters']
     x = max(params.stiffnessFactor, 0.1)
-    sr = max(params.steerRatio, 0.1)
+    if self.live_sr:
+      sr = max(params.steerRatio, 0.1)
+      sr = min(sr, self.steerRatio_Max)
+      if self.live_sr_percent != 0:
+        sr = sr * (1+(0.01*self.live_sr_percent))
+    else:
+     sr = max(self.new_steerRatio, 0.1)
+
     self.VM.update_params(x, sr)
+
+    self.steerRatio_to_send = sr
 
     # Update Torque Params
     if self.CP.lateralTuning.which() == 'torque':
-      torque_params = self.sm['liveTorqueParameters']
-      # Todo: Figure out why this is needed, and remove it
-      if (torque_params.latAccelFactorFiltered > 0) and (self.sm.valid['liveTorqueParameters']):
-        self.LaC.update_live_torque_params(torque_params.latAccelFactorFiltered, torque_params.latAccelOffsetFiltered, torque_params.frictionCoefficientFiltered)
+      if self.is_live_torque:
+        torque_params = self.sm['liveTorqueParameters']
+        # Todo: Figure out why this is needed, and remove it
+        if (torque_params.latAccelFactorFiltered > 0) and (self.sm.valid['liveTorqueParameters']):
+          self.torque_latAccelFactor = torque_params.latAccelFactorFiltered
+          self.torque_latAccelOffset = torque_params.latAccelOffsetFiltered
+          self.torque_friction = torque_params.frictionCoefficientFiltered
+          self.LaC.update_live_torque_params(torque_params.latAccelFactorFiltered, torque_params.latAccelOffsetFiltered, torque_params.frictionCoefficientFiltered)
+        else:
+          self.torque_latAccelFactor = float(Decimal(Params().get("TorqueMaxLatAccel", encoding="utf8")) * Decimal('0.1'))
+          self.torque_latAccelOffset = 0.
+          self.torque_friction = float(Decimal(Params().get("TorqueFriction", encoding="utf8")) * Decimal('0.001'))
+          self.LaC.update_live_torque_params(self.torque_latAccelFactor, self.torque_latAccelOffset, self.torque_friction)
+      else:
+        self.torque_latAccelFactor = float(Decimal(Params().get("TorqueMaxLatAccel", encoding="utf8")) * Decimal('0.1'))
+        self.torque_latAccelOffset = 0.
+        self.torque_friction = float(Decimal(Params().get("TorqueFriction", encoding="utf8")) * Decimal('0.001'))
+        self.LaC.update_live_torque_params(self.torque_latAccelFactor, self.torque_latAccelOffset, self.torque_friction)
 
     lat_plan = self.sm['lateralPlan']
     long_plan = self.sm['longitudinalPlan']
@@ -753,7 +797,7 @@ class Controls:
 
     # Curvature & Steering angle
     params = self.sm['liveParameters']
-    torque_params = self.sm['liveTorqueParameters']
+    #torque_params = self.sm['liveTorqueParameters']
 
     steer_angle_without_offset = math.radians(CS.steeringAngleDeg - params.angleOffsetDeg)
     curvature = -self.VM.calc_curvature(steer_angle_without_offset, CS.vEgo, params.roll)
@@ -800,16 +844,16 @@ class Controls:
     controlsState.sccStockCamAct = self.sccStockCamAct
     controlsState.sccStockCamStatus = self.sccStockCamStatus
 
-    controlsState.steerRatio = self.VM.sR
+    controlsState.steerRatio = float(self.steerRatio_to_send)
     controlsState.steerActuatorDelay = float(Decimal(Params().get("SteerActuatorDelayAdj", encoding="utf8")) * Decimal('0.01'))
 
     controlsState.sccGasFactor = ntune_scc_get('sccGasFactor')
     controlsState.sccBrakeFactor = ntune_scc_get('sccBrakeFactor')
     controlsState.sccCurvatureFactor = ntune_scc_get('sccCurvatureFactor')
 
-    controlsState.latAccelFactor = torque_params.latAccelFactorFiltered
-    controlsState.latAccelOffset = torque_params.latAccelOffsetFiltered
-    controlsState.friction = torque_params.frictionCoefficientFiltered
+    controlsState.latAccelFactor = self.torque_latAccelFactor
+    controlsState.latAccelOffset = self.torque_latAccelOffset
+    controlsState.friction = self.torque_friction
 
     lat_tuning = self.CP.lateralTuning.which()
     if self.joystick_mode:

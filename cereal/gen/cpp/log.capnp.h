@@ -13843,6 +13843,8 @@ public:
 
   inline  ::int32_t getVersion() const;
 
+  inline bool getUseParams() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -13911,6 +13913,9 @@ public:
 
   inline  ::int32_t getVersion();
   inline void setVersion( ::int32_t value);
+
+  inline bool getUseParams();
+  inline void setUseParams(bool value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -36858,6 +36863,20 @@ inline  ::int32_t LiveTorqueParametersData::Builder::getVersion() {
 inline void LiveTorqueParametersData::Builder::setVersion( ::int32_t value) {
   _builder.setDataField< ::int32_t>(
       ::capnp::bounded<10>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool LiveTorqueParametersData::Reader::getUseParams() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline bool LiveTorqueParametersData::Builder::getUseParams() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void LiveTorqueParametersData::Builder::setUseParams(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool LiveMapDataDEPRECATED::Reader::getSpeedLimitValid() const {

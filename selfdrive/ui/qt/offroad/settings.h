@@ -331,4 +331,107 @@ private:
   void refresh();
 };
 
+class LiveSteerRatioToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  LiveSteerRatioToggle() : ToggleControl(tr("Use Live SteerRatio"), tr("Live SteerRatio is used instead of variable/fixed SteerRatio."), "../assets/offroad/icon_shell.png", Params().getBool("OpkrLiveSteerRatio")) {
+    QObject::connect(this, &LiveSteerRatioToggle::toggleFlipped, [=](int state) {
+      bool status = state ? true : false;
+      Params().putBool("OpkrLiveSteerRatio", status);
+    });
+  }
+};
+
+class VariableSteerMaxToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  VariableSteerMaxToggle() : ToggleControl(tr("SteerMax/Variable SteerMax Toggle"), tr("Use the variable SteerMax by curvature. If this is off, runs only with base value below. STBase: SteerMax Default value. STMax: SteerMax Maximum value."), "../assets/offroad/icon_shell.png", Params().getBool("OpkrVariableSteerMax")) {
+    QObject::connect(this, &VariableSteerMaxToggle::toggleFlipped, [=](int state) {
+      bool status = state ? true : false;
+      Params().putBool("OpkrVariableSteerMax", status);
+    });
+  }
+};
+
+class SRBaseControl : public AbstractControl {
+  Q_OBJECT
+
+public:
+  SRBaseControl();
+
+private:
+  QPushButton btndigit;
+  QPushButton btnminus;
+  QPushButton btnplus;
+  QLabel label;
+  Params params;
+  float digit = 0.01;
+  
+  void refresh();
+};
+
+class SRMaxControl : public AbstractControl {
+  Q_OBJECT
+
+public:
+  SRMaxControl();
+
+private:
+  QPushButton btndigit;
+  QPushButton btnminus;
+  QPushButton btnplus;
+  QLabel label;
+  Params params;
+  float digit = 0.01;
+  
+  void refresh();
+};
+
+class LiveSRPercent : public AbstractControl {
+  Q_OBJECT
+
+public:
+  LiveSRPercent();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+class TorqueMaxLatAccel : public AbstractControl {
+  Q_OBJECT
+
+public:
+  TorqueMaxLatAccel();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
+class TorqueFriction : public AbstractControl {
+  Q_OBJECT
+
+public:
+  TorqueFriction();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  
+  void refresh();
+};
+
 

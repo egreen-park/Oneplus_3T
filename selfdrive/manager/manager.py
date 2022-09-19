@@ -78,6 +78,12 @@ def manager_init() -> None:
     ("SteerActuatorDelayAdj", "10"),
     ("SteerLimitTimerAdj", "400"),
     ("PathOffsetAdj", "0"),
+    ("SteerRatioAdj", "1550"),
+    ("SteerRatioMaxAdj", "1790"),
+    ("OpkrLiveSteerRatio", "1"),
+    ("OpkrVariableSteerMax", "0"),
+    ("TorqueFriction", "5"),
+    ("TorqueMaxLatAccel", "28"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
