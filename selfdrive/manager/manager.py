@@ -84,6 +84,8 @@ def manager_init() -> None:
     ("OpkrVariableSteerMax", "0"),
     ("TorqueFriction", "5"),
     ("TorqueMaxLatAccel", "28"),
+    ("LiveSteerRatioPercent", "-5"),
+
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
