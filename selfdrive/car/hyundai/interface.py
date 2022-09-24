@@ -257,7 +257,7 @@ class CarInterface(CarInterfaceBase):
     #torque_friction = 0.1301424599248651 #FRICTION
     #ret.maxLateralAccel = 1.8721703683337008 #MAX_LAT_ACCEL_MEASURE
 
-    torque_lat_accel_factor = 2.405339728085138 #LAT_ACCEL_FACTOR
+    torque_lat_accel_factor = 2.205339728085138 #LAT_ACCEL_FACTOR
    # torque_friction = 0.11650989850813716 #FRICTION
     torque_friction = 0.05
     ret.maxLateralAccel = 1.460032270828705 #MAX_LAT_ACCEL_MEASURED
