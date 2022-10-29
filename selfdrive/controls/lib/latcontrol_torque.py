@@ -70,7 +70,7 @@ class LatControlTorque(LatControl):
         #low_speed_factor = interp(CS.vEgo, [0, 10, 20], [100, 75, 75])
         #low_speed_factor = interp(CS.vEgo, [0, 15], [500, 0]) # comma 1st
         #low_speed_factor = interp(CS.vEgo, [0, 10, 20], [500, 500, 200]) # comma 2nd
-        low_speed_factor = interp(CS.vEgo, [0, 5, 15], [500, 400, 0]) # test1
+        low_speed_factor = interp(CS.vEgo, [0, 5, 10], [400, 300, 0]) # test1
       else:
         low_speed_factor = interp(CS.vEgo, [0, 5], [300, 0])
 
