@@ -542,7 +542,7 @@ void NvgWindow::drawStoplineSignal(QPainter &p) {
   int TRsign_w = 250;
   int TRsign_h = 140;
   int TRsign_x = 960 + 40 + TRsign_w;
-  int TRsign_y = 50;
+  int TRsign_y = 630; //50
   if (lp.getTrafficState() == 2) {
       trafficLight = 1;
       p.setOpacity(0.8);
@@ -696,11 +696,11 @@ void NvgWindow::drawSpeed(QPainter &p) {
 
   QString speed;
   speed.sprintf("%.0f", cur_speed);
-  configFont(p, "Open Sans", 176, "Bold");
-  drawTextWithColor(p, rect().center().x(), 230, speed, color);
+  configFont(p, "Open Sans", 190, "Bold");
+  drawTextWithColor(p, rect().center().x(), 230 + 540, speed, color);
 
-  configFont(p, "Open Sans", 66, "Regular");
-  drawText(p, rect().center().x(), 310, s->scene.is_metric ? "km/h" : "mph", 200);
+ // configFont(p, "Open Sans", 66, "Regular");
+ // drawText(p, rect().center().x(), 310, s->scene.is_metric ? "km/h" : "mph", 200);
 }
 
 static QRect getRect(QPainter &p, int flags, QString text) {
@@ -749,8 +749,8 @@ void NvgWindow::drawMaxSpeed(QPainter &p) {
   {
       int w = 120;
       int h = 54;
-      int x = (width() + (bdr_s*2))/2 - w/2 - bdr_s;
-      int y = 40 - bdr_s;
+      int x = (width() + (bdr_s*2))/2 - w/2 - bdr_s - 596; //NDA 
+      int y = 40 - bdr_s + 430;  //NDA 
 
       p.setOpacity(1.f);
       p.drawPixmap(x, y, w, h, activeNDA == 1 ? ic_nda : ic_hda);
@@ -758,7 +758,7 @@ void NvgWindow::drawMaxSpeed(QPainter &p) {
 
 
   const int x_start = 30;
-  const int y_start = 30;
+  const int y_start = 340;
 
   int board_width = 210;
   int board_height = 384;
@@ -941,7 +941,7 @@ void NvgWindow::drawMaxSpeed(QPainter &p) {
 void NvgWindow::drawSteer(QPainter &p) {
 
   int x = 30;
-  int y = 540;
+  int y = 30;
 
   const SubMaster &sm = *(uiState()->sm);
   auto car_state = sm["carState"].getCarState();
@@ -1037,7 +1037,7 @@ void NvgWindow::drawThermal(QPainter &p) {
   p.setPen(QColor(r, g, 200, 200));
   p.drawText(rect, Qt::AlignCenter, str);
 
-  y += 55;
+  y += 45;
   configFont(p, "Open Sans", 25, "Bold");
   rect = QRect(x, y, w, w);
   p.setPen(QColor(255, 255, 255, 200));
@@ -1059,7 +1059,7 @@ void NvgWindow::drawThermal(QPainter &p) {
   p.setPen(QColor(255, 255, 255, 200));
   p.drawText(rect, Qt::AlignCenter, "CPU");
 
-  y += 80;
+  y += 70;
   configFont(p, "Open Sans", 50, "Bold");
   str.sprintf("%.0f°C", ambientTemp);
   rect = QRect(x, y, w, w);
@@ -1068,7 +1068,7 @@ void NvgWindow::drawThermal(QPainter &p) {
   p.setPen(QColor(r, g, 200, 200));
   p.drawText(rect, Qt::AlignCenter, str);
 
-  y += 55;
+  y += 45;
   configFont(p, "Open Sans", 25, "Bold");
   rect = QRect(x, y, w, w);
   p.setPen(QColor(255, 255, 255, 200));
@@ -1267,7 +1267,7 @@ void NvgWindow::drawDebugText(QPainter &p) {
   const SubMaster &sm = *(uiState()->sm);
   QString str, temp;
 
-  int y = 300;
+  int y = 80;
   const int height = 60;
 
   const int text_x = width()/2 + 250;
