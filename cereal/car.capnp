@@ -225,7 +225,7 @@ struct CarState {
   vCluRatio @45 :Float32;
   aBasis @46 :Float32;
 
-  naviSafetyInfo @51 : NaviSafetyInfo;
+  naviSafetyInfo @47 : NaviSafetyInfo;
 
    struct NaviSafetyInfo {
      sign @0 : Int32; # OPKR_S_Sign
