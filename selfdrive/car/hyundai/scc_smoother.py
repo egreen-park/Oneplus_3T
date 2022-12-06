@@ -167,9 +167,12 @@ class SccSmoother:
     # HDA
     navi = CS.naviSafetyInfo
 
-    str_log = '{:}, {:}, {:}, , {:}'.format(
-              navi.sign, navi.speed2, navi.dist1, navi.dist2, navi.speedLimit)
-    self.log.add( '{}'.format( str_log ) )
+    try:
+      str_log = '{:}, {:}, {:}, , {:}'.format(
+                navi.sign, navi.speed2, navi.dist1, navi.dist2, navi.speedLimit)
+      self.log.add( '{}'.format( str_log ) )
+    except:
+      print("no navi data")
 
     if navi is not None and navi.speedLimit >= self.kph_to_clu(10) and ascc_enabled: 
       max_speed_clu = min(max_speed_clu, navi.speedLimit)
