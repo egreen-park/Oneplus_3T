@@ -3,6 +3,7 @@ import random
 from math import sqrt
 
 import numpy as np
+from common.log import Loger
 from common.numpy_fast import clip, interp, mean
 from cereal import car
 from common.realtime import DT_CTRL
@@ -64,7 +65,7 @@ class SccSmoother:
     return int(kph * CV.KPH_TO_MS * self.speed_conv_to_clu)
 
   def __init__(self):
-
+    self.log = Loger()
     self.longcontrol = Params().get_bool('LongControlEnabled')
     self.slow_on_curves = False if Params().get_bool("TurnVisionControl") else Params().get_bool('SccSmootherSlowOnCurves')
     self.sync_set_speed_while_gas_pressed = Params().get_bool('SccSmootherSyncGasPressed')
@@ -165,6 +166,10 @@ class SccSmoother:
 
     # HDA
     navi = CS.naviSafetyInfo
+
+    str_log = '{:}, {:}, {:}, , {:}'.format(
+              navi.sign, navi.speed2, navi.dist1, navi.dist2, navi.speedLimit)
+    self.log.add( '{}'.format( str_log ) )
 
     if navi is not None and navi.speedLimit >= self.kph_to_clu(10) and ascc_enabled: 
       max_speed_clu = min(max_speed_clu, navi.speedLimit)
