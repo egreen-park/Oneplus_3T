@@ -168,7 +168,7 @@ class SccSmoother:
     navi = CS.naviSafetyInfo
 
     try:
-      str_log = '{:}, {:}, {:}, , {:}'.format(
+      str_log = '{:}, {:}, {:}, {:}, {:}'.format(
                 navi.sign, navi.speed2, navi.dist1, navi.dist2, navi.speedLimit)
       self.log.add( '{}'.format( str_log ) )
     except:
