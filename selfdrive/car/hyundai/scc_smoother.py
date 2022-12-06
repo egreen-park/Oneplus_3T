@@ -165,8 +165,7 @@ class SccSmoother:
                    and 1 < CS.cruiseState_speed < 255 and not CS.brake_pressed
 
     # HDA
-    if sm.updated['carState']:
-      navi = sm['carState'].naviSafetyInfo
+    navi = CS.naviSafetyInfo
 
     try:
       str_log = '{:}, {:}, {:}, , {:}'.format(

@@ -47,6 +47,7 @@ class CarState(CarStateBase):
     self.standstill = False
     self.cruiseState_enabled = False
     self.cruiseState_speed = 0
+    self.naviSafetyInfo = car.CarState.naviSafetyInfo
 
     self.use_cluster_speed = Params().get_bool('UseClusterSpeed')
     self.long_control_enabled = Params().get_bool('LongControlEnabled')
@@ -274,7 +275,7 @@ class CarState(CarStateBase):
     else:
       ret.naviSafetyInfo.speedLimit = 0
 
-
+    self.naviSafetyInfo = ret.naviSafetyInfo
     return ret
 
   @staticmethod
