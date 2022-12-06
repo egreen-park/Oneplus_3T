@@ -174,8 +174,12 @@ class SccSmoother:
     except:
       print("no navi data")
 
-    if navi is not None and navi.speedLimit >= self.kph_to_clu(10) and ascc_enabled: 
-      max_speed_clu = min(max_speed_clu, navi.speedLimit)
+    try:
+      if navi is not None and navi.speedLimit >= self.kph_to_clu(10) and ascc_enabled: 
+        max_speed_navi = min(max_speed_clu, navi.speedLimit)
+        self.log.add(max_speed_navi)
+    except:
+      print("navi is None")
 
     # NDA
     if apply_limit_speed >= self.kph_to_clu(10) and ascc_enabled:
