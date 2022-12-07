@@ -165,21 +165,21 @@ class SccSmoother:
                    and 1 < CS.cruiseState_speed < 255 and not CS.brake_pressed
 
     # HDA
-    navi = CS.naviSafetyInfo
+    # navi = CS.naviSafetyInfo
 
-    try:
-      str_log = '{:}, {:}, {:}, {:}, {:}'.format(
-                navi.sign, navi.speed2, navi.dist1, navi.dist2, navi.speedLimit)
-      self.log.add( '{}'.format( str_log ) )
-    except:
-      print("no navi data")
+    # try:
+    #   str_log = '{:}, {:}, {:}, {:}, {:}'.format(
+    #             navi.sign, navi.speed2, navi.dist1, navi.dist2, navi.speedLimit)
+    #   self.log.add( '{}'.format( str_log ) )
+    # except:
+    #   print("no navi data")
 
-    try:
-      if navi is not None and navi.speedLimit >= self.kph_to_clu(10) and ascc_enabled: 
-        max_speed_navi = min(max_speed_clu, navi.speedLimit)
-        self.log.add(max_speed_navi)
-    except:
-      print("navi is None")
+    # try:
+    #   if navi is not None and navi.speedLimit >= self.kph_to_clu(10) and ascc_enabled: 
+    #     max_speed_navi = min(max_speed_clu, navi.speedLimit)
+    #     self.log.add(max_speed_navi)
+    # except:
+    #   print("navi is None")
 
     # NDA
     if apply_limit_speed >= self.kph_to_clu(10) and ascc_enabled:

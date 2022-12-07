@@ -6,6 +6,7 @@ from opendbc.can.parser import CANParser
 from opendbc.can.can_define import CANDefine
 from common.conversions import Conversions as CV
 from common.params import Params
+from common.log import Loger
 
 GearShifter = car.CarState.GearShifter
 
@@ -274,6 +275,13 @@ class CarState(CarStateBase):
       ret.naviSafetyInfo.speedLimit = speedLimit if speedLimit < 255 else 0
     else:
       ret.naviSafetyInfo.speedLimit = 0
+
+    try:
+      str_log = '{:}, {:}, {:}, {:}, {:}'.format(
+                ret.naviSafetyInfo.sign, ret.naviSafetyInfo.speed2, ret.naviSafetyInfo.dist1, ret.naviSafetyInfo.dist2, ret.naviSafetyInfo.speedLimit)
+      Loger().add( '{}'.format( str_log ) )
+    except:
+      print("no navi data")
 
     self.naviSafetyInfo = ret.naviSafetyInfo
     return ret
